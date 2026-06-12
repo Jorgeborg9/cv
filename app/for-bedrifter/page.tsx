@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 import type { LucideIcon } from "lucide-react";
-import { Bot, Megaphone, Monitor, Search } from "lucide-react";
+import {
+  Bot,
+  ChartNoAxesCombined,
+  FileText,
+  Megaphone,
+  Monitor,
+  MousePointerClick,
+  Search,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import CasesSection from "./CasesSection";
@@ -48,7 +56,7 @@ const serviceItems: ServiceItem[] = [
   {
     title: "Markedsføring",
     description:
-      "Annonsering, testing og løpende forbedringer med fokus på hva som faktisk skaper henvendelser.",
+      "Annonsering, innhold og optimalisering med fokus på flere henvendelser, ikke bare flere klikk.",
     icon: Megaphone,
   },
   {
@@ -120,6 +128,45 @@ const pricingItems: PricingItem[] = [
   },
 ];
 
+const additionalServiceItems: ServiceItem[] = [
+  {
+    title: "Innhold og kreativer",
+    description:
+      "Ideer, manus, UGC-konsepter, annonsemateriell og innhold til sosiale medier.",
+    icon: FileText,
+  },
+  {
+    title: "Annonsering",
+    description:
+      "Oppsett, testing og optimalisering av Meta Ads, Google Ads og Snapchat Ads.",
+    icon: Megaphone,
+  },
+  {
+    title: "SEO og lokal synlighet",
+    description:
+      "Forbedringer som gjør det enklere å bli funnet av relevante kunder i Google.",
+    icon: Search,
+  },
+  {
+    title: "Analyse og rapportering",
+    description:
+      "Enklere oversikt over hva som fungerer, hva som bør forbedres og hva som bør prioriteres.",
+    icon: ChartNoAxesCombined,
+  },
+  {
+    title: "AI og automatisering",
+    description:
+      "Små systemer og arbeidsflyter som sparer tid og gjør markedsføringen mer effektiv.",
+    icon: Bot,
+  },
+  {
+    title: "Konverteringsforbedring",
+    description:
+      "Forbedring av budskap, struktur, CTA-er og brukerflyt for å få flere henvendelser.",
+    icon: MousePointerClick,
+  },
+];
+
 const experienceBlocks = [
   "Kombinerer markedsføring, nettsider og analyse",
   "Fokus på tiltak som gir størst effekt først",
@@ -138,6 +185,8 @@ const skillTags = [
   "Konverteringsforbedring",
   "AI & automatisering",
   "Innholdsstrategi",
+  "Innholdsproduksjon",
+  "UGC og kreativer",
   "Rapportering",
   "Leadgenerering",
 ];
@@ -519,6 +568,45 @@ export default function ForBedrifterPage() {
                     </a>
                   </article>
                 ))}
+              </div>
+
+              <div className="mt-12 border-t border-[rgba(17,23,20,0.09)] pt-10">
+                <div className="max-w-3xl">
+                  <p className="eyebrow text-xs font-semibold">Mer jeg kan hjelpe med</p>
+                  <h3 className="mt-3 text-3xl font-semibold tracking-[-0.05em] sm:text-4xl">
+                    Trenger dere hjelp med mer enn nettsiden?
+                  </h3>
+                  <p className="mt-4 text-sm leading-6 text-[var(--muted)] sm:text-base">
+                    Mange bedrifter taper synlighet og henvendelser fordi innhold, annonser,
+                    nettside og analyse ikke henger godt nok sammen. Jeg kan hjelpe med konkrete
+                    oppgaver som gjør markedsføringen enklere å gjennomføre og lettere å forbedre.
+                  </p>
+                </div>
+
+                <div className="mt-8 grid gap-x-8 gap-y-3 md:grid-cols-2 xl:grid-cols-3">
+                  {additionalServiceItems.map((item) => {
+                    const Icon = item.icon;
+
+                    return (
+                      <article
+                        key={item.title}
+                        className="flex gap-4 rounded-[1.35rem] border border-[rgba(17,23,20,0.07)] bg-white/48 p-4 shadow-[0_10px_28px_rgba(34,42,37,0.035)]"
+                      >
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--accent-soft)] text-[var(--accent)]">
+                          <Icon className="h-4.5 w-4.5" strokeWidth={1.9} />
+                        </span>
+                        <div>
+                          <h4 className="text-base font-semibold tracking-[-0.02em] text-[var(--foreground)]">
+                            {item.title}
+                          </h4>
+                          <p className="mt-1.5 text-sm leading-6 text-[var(--muted)]">
+                            {item.description}
+                          </p>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
