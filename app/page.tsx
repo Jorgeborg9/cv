@@ -4,16 +4,20 @@ import {
   Bot,
   Clapperboard,
   Headset,
+  Languages,
+  MapPin,
   Megaphone,
   Monitor,
+  Route,
   ShoppingCart,
+  UserRoundCheck,
   Wrench,
 } from "lucide-react";
 import Image from "next/image";
 
 const heroBackgroundImage = "/images/Hero1.jpg";
 const contactBackgroundImage =
-  "https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=1800&q=80";
+  "https://images.unsplash.com/photo-1745323309688-fc2639112546?auto=format&fit=crop&w=1800&q=80";
 const primaryPortraitImage = "/images/Portrett%20J%C3%B8rgen%202.png";
 
 type SkillItem = {
@@ -27,8 +31,16 @@ type ProjectItem = {
   category: string;
   description: string;
   tags: string[];
-  image: string;
-  imageAlt: string;
+  visual:
+    | {
+        type: "image";
+        src: string;
+        alt: string;
+        className?: string;
+      }
+    | {
+        type: "leadSystem";
+      };
 };
 
 type ExperienceItem = {
@@ -39,7 +51,7 @@ type ExperienceItem = {
   tags: string[];
   logo: string;
   logoAlt: string;
-  surface: string;
+  isCurrent?: boolean;
 };
 
 type PersonalImageCard = {
@@ -105,11 +117,10 @@ const experienceItems: ExperienceItem[] = [
     role: "Vekstmarkedsfører",
     company: "Lildog AS",
     period: "aug. 2021–i dag",
+    isCurrent: true,
     tags: ["Annonser", "Innhold", "Shopify", "Analyse"],
     logo: "/images/Lildog_Small_Green_RGB.png",
     logoAlt: "Lildog-logo",
-    surface:
-      "bg-[linear-gradient(145deg,rgba(251,253,251,0.96),rgba(237,244,239,0.94))] before:bg-[radial-gradient(circle_at_top_left,rgba(152,193,168,0.14),transparent_34%)]",
     bullets: [
       "Ansvar for annonsering, innhold, kampanjer, optimalisering og rapportering.",
       "Lager statiske og videoannonser, UGC-scripts, annonsetekster og kampanjesider.",
@@ -123,8 +134,6 @@ const experienceItems: ExperienceItem[] = [
     tags: ["SEO", "Nettside", "Nyhetsbrev"],
     logo: "/images/EYD%20logo.png",
     logoAlt: "EYD-logo",
-    surface:
-      "bg-[linear-gradient(145deg,rgba(252,253,252,0.96),rgba(239,243,245,0.94))] before:bg-[radial-gradient(circle_at_top_right,rgba(188,214,223,0.14),transparent_32%)]",
     bullets: [
       "Jobbet med SEO, nettsideforbedringer, nyhetsbrev og annonsering.",
       "Bidro med innhold, kommunikasjon og kundedialog i en tidlig vekstfase.",
@@ -137,8 +146,6 @@ const experienceItems: ExperienceItem[] = [
     tags: ["Prosjektkoordinering", "Kampanjer", "Logistikk"],
     logo: "/images/Wal%20logo.png",
     logoAlt: "We Are Live-logo",
-    surface:
-      "bg-[linear-gradient(145deg,rgba(253,253,252,0.96),rgba(244,241,235,0.94))] before:bg-[radial-gradient(circle_at_bottom_left,rgba(217,203,170,0.14),transparent_34%)]",
     bullets: [
       "Koordinerte kampanjer, personell, logistikk og gjennomføring i Trondheim.",
       "Ansvar for oppfølging, opplæring og struktur rundt brand ambassadors.",
@@ -152,8 +159,6 @@ const experienceItems: ExperienceItem[] = [
     tags: ["Drift", "Support", "Produkt", "Team"],
     logo: "/images/tailit.png",
     logoAlt: "Tail it-logo",
-    surface:
-      "bg-[linear-gradient(145deg,rgba(251,252,251,0.96),rgba(240,244,241,0.94))] before:bg-[radial-gradient(circle_at_top_left,rgba(178,201,186,0.12),transparent_34%)]",
     bullets: [
       "Operativ rolle med ansvar for support, team, drift og prosjektoppfølging.",
       "Jobbet med apputvikling, nettsider, betalingsløsninger og interne prosesser.",
@@ -167,8 +172,6 @@ const experienceItems: ExperienceItem[] = [
     tags: ["Drift", "Support", "Produkt", "Team"],
     logo: "/images/tailit.png",
     logoAlt: "Tail it-logo",
-    surface:
-      "bg-[linear-gradient(145deg,rgba(252,252,251,0.96),rgba(242,241,238,0.94))] before:bg-[radial-gradient(circle_at_top_right,rgba(202,208,198,0.12),transparent_30%)]",
     bullets: [
       "Ansvar for kundesupport via telefon, e-post, chat og møter.",
       "Håndterte forsendelser, reparasjoner, retur og praktisk kundeoppfølging.",
@@ -184,8 +187,25 @@ const selectedProjects: ProjectItem[] = [
     description:
       "Et dashboard-konsept for å gjøre Meta Ads-data lettere å lese, forstå og bruke i beslutninger.",
     tags: ["Meta Ads", "Dashboard", "SaaS", "Analyse"],
-    image: "/images/IAAI%20-%20Saas.png",
-    imageAlt: "Skjermbilde fra Insight Ads AI-konseptet",
+    visual: {
+      type: "image",
+      src: "/images/IAAI%20-%20Saas.png",
+      alt: "Skjermbilde fra Insight Ads AI-konseptet",
+      className: "object-cover object-[center_18%]",
+    },
+  },
+  {
+    title: "Creative OS",
+    category: "Creative workflow",
+    description:
+      "Et arbeidsflyt-system for annonser: fra idé og script til innholdsproduksjon, publisering, iterering og analyse.",
+    tags: ["Ads", "Workflow", "Creatives", "Analyse", "Internsystem"],
+    visual: {
+      type: "image",
+      src: "/images/creative%20os.png",
+      alt: "Skjermbilde fra Creative OS",
+      className: "object-cover object-[40%_20%]",
+    },
   },
   {
     title: "AI/GEO Dashboard",
@@ -193,8 +213,12 @@ const selectedProjects: ProjectItem[] = [
     description:
       "Et konsept for å følge med på hvordan merkevarer omtales og posisjoneres i AI-søk og nye søkeflater.",
     tags: ["AI", "GEO", "Merkevare", "Dashboard"],
-    image: "/images/GEO%20prosjekt.jpeg",
-    imageAlt: "Skjermbilde fra AI/GEO Dashboard",
+    visual: {
+      type: "image",
+      src: "/images/GEO%20prosjekt.jpeg",
+      alt: "Skjermbilde fra AI/GEO Dashboard",
+      className: "object-cover object-top",
+    },
   },
   {
     title: "Landingsidesystemer",
@@ -202,26 +226,12 @@ const selectedProjects: ProjectItem[] = [
     description:
       "Gjenbrukbare landingssider for lokale bedrifter, bygget for rask testing av budskap, tilbud og konvertering.",
     tags: ["Landingssider", "Webdesign", "Konvertering", "Lokale bedrifter"],
-    image: "/images/Nettside%20-%20Bilpleie.png",
-    imageAlt: "Bilpleie-nettside som eksempel på landingsidesystem",
-  },
-  {
-    title: "Shopify-arbeid",
-    category: "E-handel / kampanjer",
-    description:
-      "Forbedringer i Shopify-butikk, kampanjesider, produktsider og kjøpsflyt basert på trafikk og salg.",
-    tags: ["Shopify", "E-handel", "Kampanjer", "Konvertering"],
-    image: "/images/Shopify%201.png",
-    imageAlt: "Skjermbilde fra Shopify-prosjekt",
-  },
-  {
-    title: "Shopify-optimalisering",
-    category: "E-handel / kampanjer",
-    description:
-      "Forbedringer i Shopify-butikk, kampanjesider, produktsider og kjøpsflyt basert på trafikk og salg.",
-    tags: ["Shopify", "E-handel", "Kampanjer", "Konvertering"],
-    image: "/images/Shopify%202.png",
-    imageAlt: "Skjermbilde fra Shopify-optimalisering",
+    visual: {
+      type: "image",
+      src: "/images/Nettside%20-%20Bilpleie.png",
+      alt: "Bilpleie-nettside som eksempel på landingsidesystem",
+      className: "object-cover object-top",
+    },
   },
   {
     title: "Leadgenereringssystem",
@@ -229,23 +239,28 @@ const selectedProjects: ProjectItem[] = [
     description:
       "Et system for å finne, strukturere og score potensielle bedriftsleads raskere enn manuell leting.",
     tags: ["Leadfunn", "Google Places", "Scoring", "Automatisering"],
-    image: "/images/Skjermbilde%202026-05-26%20kl.%2011.35.23.png",
-    imageAlt: "Illustrasjon av leadgenereringssystem",
+    visual: {
+      type: "leadSystem",
+    },
   },
   {
-    title: "Mobilkonsepter for trening",
+    title: "Mobilapp for trening",
     category: "App / MVP",
     description:
       "Tidlige appkonsepter bygget i React Native / Expo for trening, progresjon, logging og brukeroppfølging.",
     tags: ["React Native", "Expo", "MVP", "Produkt"],
-    image: "/images/TNAX%20-%20App.png",
-    imageAlt: "Skjermbilde fra mobilkonseptet TNAX",
+    visual: {
+      type: "image",
+      src: "/images/TNAX%20-%20App.png",
+      alt: "Skjermbilde fra mobilappen TNAX",
+      className: "object-cover object-[center_24%]",
+    },
   },
 ];
 
 const personalGalleryCards: PersonalImageCard[] = [
   {
-    title: "Utholdenhet",
+    title: "Skihopping",
     image: "/images/IMG_1874.JPG",
     imageAlt: "Jørgen Berg i langrennsmiljø",
     align: "object-[center_34%]",
@@ -258,12 +273,20 @@ const personalGalleryCards: PersonalImageCard[] = [
   },
 ];
 
-const wideLifestyleCard: PersonalImageCard = {
-  title: "Golf",
-  image: "/images/IMG_4858.JPG",
-  imageAlt: "Jørgen Berg i golfmiljø",
-  align: "object-top",
-};
+const bottomGalleryCards: PersonalImageCard[] = [
+  {
+    title: "Golf",
+    image: "/images/IMG_4858.JPG",
+    imageAlt: "Jørgen Berg i golfmiljø",
+    align: "object-[center_25%]",
+  },
+  {
+    title: "Utfordringer",
+    image: "/images/IMG_1984.JPG",
+    imageAlt: "Jørgen Berg i en situasjon som representerer utfordringer",
+    align: "object-[center_36%]",
+  },
+];
 
 const featuredAboutImage: PersonalImageCard = {
   title: "Langrenn og trening",
@@ -274,50 +297,56 @@ const featuredAboutImage: PersonalImageCard = {
 
 const competencyGroups = [
   {
-    title: "Markedsføring",
-    items: ["Meta Ads", "Google Ads", "SEO", "Nyhetsbrev"],
+    title: "Performance marketing",
+    items: ["Meta Ads", "Snapchat Ads", "Google Ads", "Funnels", "Testing og iterasjon"],
+  },
+  {
+    title: "Innhold og creatives",
+    items: [
+      "Videoannonser",
+      "Statiske annonser",
+      "UGC-scripts",
+      "Annonsetekst",
+      "CapCut",
+      "Canva",
+      "Photoshop",
+    ],
   },
   {
     title: "Nettsider og e-handel",
-    items: ["Shopify", "WordPress", "Landingssider", "Kampanjesider"],
-  },
-  {
-    title: "AI og workflows",
-    items: ["OpenAI", "Codex", "Automatisering", "Interne systemer"],
-  },
-  {
-    title: "Design og innhold",
-    items: ["Canva", "Photoshop", "CapCut", "Annonsemateriell"],
+    items: ["Shopify", "WordPress", "Landingssider", "Kampanjesider", "Konvertering"],
   },
   {
     title: "Analyse og rapportering",
-    items: ["GA4", "Looker Studio", "Dashboards", "Rapportering"],
-  },
-];
-
-const volunteerItems = [
-  {
-    role: "Head of Marketing & PR",
-    organization: "BISO",
+    items: ["GA4", "Looker Studio", "Dashboards", "KPI-er", "Rapportering"],
   },
   {
-    role: "Communications Committee",
-    organization: "BISO",
+    title: "AI og workflows",
+    items: ["OpenAI", "Codex", "Automatisering", "Interne systemer", "MVP-testing"],
   },
 ];
 
-const marketItems = [
-  "Norsk og engelsk i daglig arbeid",
-  "Kampanjer og innhold på tvers av flere land",
-  "Tilpasning av budskap, annonser og innhold til ulike markeder",
-];
-
-const buildPrinciples = [
-  "Rask testing",
-  "Små iterasjoner",
-  "Praktisk fremdrift",
-  "Struktur uten unødvendig kompleksitet",
-  "Fokus på ting som faktisk brukes",
+const practicalItems = [
+  {
+    icon: MapPin,
+    label: "Basert i Trondheim",
+  },
+  {
+    icon: Route,
+    label: "Førerkort klasse B",
+  },
+  {
+    icon: Languages,
+    label: "Norsk og engelsk",
+  },
+  {
+    icon: Megaphone,
+    label: "Erfaring med kampanjer på tvers av flere markeder",
+  },
+  {
+    icon: UserRoundCheck,
+    label: "Åpen for nye muligheter",
+  },
 ];
 
 function PersonalImagePanel({
@@ -337,7 +366,7 @@ function PersonalImagePanel({
           sizes={compact ? "(min-width: 1024px) 22vw, 100vw" : "(min-width: 1024px) 34vw, 100vw"}
           className={`object-cover transition-transform duration-500 group-hover:scale-[1.03] ${align}`}
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,14,13,0.02)_0%,rgba(9,14,13,0.08)_54%,rgba(9,14,13,0.62)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,14,13,0.01)_0%,rgba(9,14,13,0.05)_58%,rgba(9,14,13,0.5)_100%)]" />
         <div className="absolute inset-x-4 bottom-4">
           <h3 className="text-base font-semibold tracking-[-0.03em] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)]">
             {title}
@@ -345,6 +374,111 @@ function PersonalImagePanel({
         </div>
       </div>
     </article>
+  );
+}
+
+function ProjectVisual({ project }: { project: ProjectItem }) {
+  if (project.visual.type === "leadSystem") {
+    return (
+      <div className="absolute inset-0 overflow-hidden bg-[linear-gradient(180deg,#f3f5f1_0%,#e7ece5_100%)]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(138,170,148,0.12),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(210,197,170,0.12),transparent_26%)]" />
+        <div className="absolute inset-x-5 top-5 rounded-[1.2rem] border border-white/70 bg-white/78 p-3 shadow-[0_16px_34px_rgba(36,44,39,0.07)] backdrop-blur-sm">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
+                Lead list
+              </p>
+              <p className="mt-1 text-sm font-semibold text-[var(--foreground)]">
+                128 bedrifter vurdert
+              </p>
+            </div>
+            <div className="rounded-full border border-[rgba(93,143,115,0.18)] bg-[rgba(220,232,223,0.72)] px-2.5 py-1 text-[11px] font-medium text-[var(--accent)]">
+              24 nye
+            </div>
+          </div>
+          <div className="mt-3 grid gap-2">
+            {[
+              ["Bilpleie Midtbyen", "A", "88"],
+              ["Nordic Takservice", "B", "74"],
+              ["Fjord Renhold", "A", "81"],
+            ].map(([name, grade, score]) => (
+              <div
+                key={name}
+                className="grid grid-cols-[1fr_auto_auto] items-center gap-3 rounded-2xl border border-white/65 bg-white/72 px-3 py-2"
+              >
+                <div>
+                  <p className="text-sm font-medium text-[var(--foreground)]">{name}</p>
+                  <p className="text-xs text-[var(--muted)]">Lokal bedrift • høy match</p>
+                </div>
+                <span className="rounded-full bg-[rgba(93,143,115,0.12)] px-2 py-1 text-[11px] font-semibold text-[var(--accent)]">
+                  {grade}
+                </span>
+                <span className="text-xs font-medium text-[var(--muted)]">{score}/100</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="absolute inset-x-5 bottom-5 grid grid-cols-[1.08fr_0.92fr] gap-3">
+          <div className="rounded-[1.2rem] border border-white/70 bg-white/72 p-4 shadow-[0_14px_32px_rgba(36,44,39,0.06)] backdrop-blur-sm">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
+              Pipeline
+            </p>
+            <div className="mt-3 space-y-3">
+              {[
+                ["Research", "42"],
+                ["Scored", "18"],
+                ["Kontaktet", "9"],
+              ].map(([label, value]) => (
+                <div key={label}>
+                  <div className="flex items-center justify-between text-xs text-[var(--muted)]">
+                    <span>{label}</span>
+                    <span>{value}</span>
+                  </div>
+                  <div className="mt-1.5 h-2 rounded-full bg-[rgba(17,23,20,0.06)]">
+                    <div
+                      className={`h-full rounded-full bg-[linear-gradient(90deg,rgba(93,143,115,0.88),rgba(128,163,138,0.58))] ${
+                        label === "Research"
+                          ? "w-[78%]"
+                          : label === "Scored"
+                            ? "w-[54%]"
+                            : "w-[31%]"
+                      }`}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-[1.2rem] border border-white/70 bg-[rgba(246,248,244,0.82)] p-4 shadow-[0_14px_32px_rgba(36,44,39,0.06)] backdrop-blur-sm">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
+              Research signaler
+            </p>
+            <div className="mt-3 space-y-2">
+              {["Nettside oppdatert", "Meta Pixel funnet", "Lav annonseaktivitet"].map((item) => (
+                <div
+                  key={item}
+                  className="rounded-2xl border border-white/70 bg-white/76 px-3 py-2 text-xs text-[var(--muted)]"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Image
+      src={project.visual.src}
+      alt={project.visual.alt}
+      fill
+      sizes="(min-width: 1280px) 24rem, (min-width: 768px) 50vw, 100vw"
+      className={`transition-transform duration-300 group-hover:scale-[1.02] ${
+        project.visual.className ?? "object-cover object-top"
+      }`}
+    />
   );
 }
 
@@ -392,7 +526,7 @@ export default function Home() {
             <div className="fade-up max-w-3xl">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/14 bg-white/10 px-4 py-2 text-xs font-medium text-white/78 backdrop-blur">
                 <span className="h-2 w-2 rounded-full bg-[var(--accent)]" />
-                Åpen for spennende muligheter
+                Åpen for nye muligheter
               </div>
               <h1 className="mt-6 max-w-4xl text-4xl font-semibold tracking-[-0.065em] text-balance sm:text-5xl lg:text-6xl">
                 Markedsfører med builder-mindset
@@ -405,7 +539,7 @@ export default function Home() {
                   href="#projects"
                   className="inline-flex h-12 items-center justify-center rounded-full bg-white px-6 text-sm font-medium text-[var(--foreground)] shadow-[0_18px_44px_rgba(0,0,0,0.2)] hover:-translate-y-0.5"
                 >
-                  Se hva jeg har gjort
+                  Se prosjekter
                 </a>
                 <a
                   href="#contact"
@@ -497,8 +631,20 @@ export default function Home() {
               >
                 <div className="absolute left-[-1.9rem] top-5 h-3 w-3 rounded-full border-2 border-white bg-[var(--accent)] shadow-[0_0_0_5px_rgba(220,232,223,0.85)] sm:left-[-2.35rem]" />
                 <article
-                  className={`relative max-w-4xl overflow-hidden rounded-[1.5rem] border border-[rgba(255,255,255,0.72)] p-4 shadow-[0_14px_34px_rgba(34,42,37,0.04),0_28px_64px_rgba(34,42,37,0.06)] ring-1 ring-black/3 transition-all duration-200 before:absolute before:inset-0 before:pointer-events-none after:absolute after:inset-x-0 after:top-0 after:h-px after:bg-[linear-gradient(90deg,rgba(255,255,255,0.78),rgba(255,255,255,0.3),rgba(255,255,255,0.7))] after:pointer-events-none group-hover:-translate-y-0.5 group-hover:shadow-[0_18px_38px_rgba(34,42,37,0.05),0_34px_72px_rgba(34,42,37,0.09)] ${item.surface} sm:p-5`}
+                  className={`relative max-w-4xl overflow-hidden rounded-[1.5rem] border p-4 shadow-[0_14px_34px_rgba(34,42,37,0.04),0_28px_64px_rgba(34,42,37,0.06)] ring-1 ring-black/3 transition-all duration-200 after:absolute after:inset-x-0 after:top-0 after:h-px after:bg-[linear-gradient(90deg,rgba(255,255,255,0.78),rgba(255,255,255,0.3),rgba(255,255,255,0.7))] after:pointer-events-none group-hover:-translate-y-0.5 group-hover:shadow-[0_18px_38px_rgba(34,42,37,0.05),0_34px_72px_rgba(34,42,37,0.09)] ${
+                    item.isCurrent
+                      ? "border-[rgba(125,156,136,0.24)] bg-[linear-gradient(180deg,rgba(250,250,246,0.97),rgba(244,246,241,0.96))]"
+                      : "border-[rgba(255,255,255,0.72)] bg-[linear-gradient(180deg,rgba(251,250,246,0.97),rgba(246,244,239,0.95))]"
+                  } sm:p-5`}
                 >
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(215,206,185,0.12),transparent_38%)] pointer-events-none" />
+                  <div
+                    className={`absolute inset-0 pointer-events-none transition-opacity duration-200 ${
+                      item.isCurrent
+                        ? "bg-[radial-gradient(circle_at_top_left,rgba(133,167,145,0.1),transparent_34%)] opacity-100"
+                        : "bg-[radial-gradient(circle_at_top_left,rgba(133,167,145,0.08),transparent_34%)] opacity-0 group-hover:opacity-100"
+                    }`}
+                  />
                   <div className="relative">
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div className="flex min-w-0 gap-4">
@@ -569,13 +715,7 @@ export default function Home() {
                 className="group flex h-full flex-col overflow-hidden rounded-[1.9rem] border border-[var(--border)] bg-[var(--surface-strong)] shadow-[0_22px_60px_rgba(36,44,39,0.06)]"
               >
                 <div className="relative h-52 overflow-hidden bg-[var(--background-deep)]">
-                  <Image
-                    src={project.image}
-                    alt={project.imageAlt}
-                    fill
-                    sizes="(min-width: 1280px) 24rem, (min-width: 768px) 50vw, 100vw"
-                    className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
-                  />
+                  <ProjectVisual project={project} />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,16,15,0.04)_0%,rgba(10,16,15,0.22)_100%)]" />
                   <div className="absolute left-5 top-5 rounded-full border border-white/70 bg-white/84 px-3 py-1 text-xs font-medium text-[var(--foreground)]">
                     {project.category}
@@ -637,111 +777,95 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="lg:col-span-2">
-            <article className="group relative overflow-hidden rounded-[2rem] border border-white/20 bg-[rgba(255,255,255,0.5)] shadow-[0_20px_52px_rgba(34,42,37,0.08)]">
-              <div className="relative h-64 sm:h-72 lg:h-80">
-                <Image
-                  src={wideLifestyleCard.image}
-                  alt={wideLifestyleCard.imageAlt}
-                  fill
-                  sizes="100vw"
-                  className={`object-cover transition-transform duration-500 group-hover:scale-[1.03] ${wideLifestyleCard.align ?? "object-center"}`}
-                />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,14,13,0.04)_0%,rgba(9,14,13,0.14)_45%,rgba(9,14,13,0.72)_100%)]" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(206,227,216,0.16),transparent_26%),radial-gradient(circle_at_bottom_right,rgba(214,189,141,0.12),transparent_24%)]" />
-                <div className="absolute inset-x-5 bottom-5 max-w-xl rounded-[1.4rem] border border-white/14 bg-black/32 p-5 text-white backdrop-blur-sm">
-                  <h3 className="text-lg font-semibold tracking-[-0.03em]">
-                    {wideLifestyleCard.title}
-                  </h3>
+          <div className="grid gap-6 lg:col-span-2 lg:grid-cols-2">
+            {bottomGalleryCards.map((card) => (
+              <article
+                key={card.title}
+                className="group relative overflow-hidden rounded-[2rem] border border-white/20 bg-[rgba(255,255,255,0.5)] shadow-[0_20px_52px_rgba(34,42,37,0.08)]"
+              >
+                <div className="relative h-72 lg:h-80">
+                  <Image
+                    src={card.image}
+                    alt={card.imageAlt}
+                    fill
+                    sizes="(min-width: 1024px) 44vw, 100vw"
+                    className={`object-cover transition-transform duration-500 group-hover:scale-[1.03] ${card.align ?? "object-center"}`}
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,14,13,0.02)_0%,rgba(9,14,13,0.08)_58%,rgba(9,14,13,0.44)_100%)]" />
+                  <div className="absolute inset-x-5 bottom-4">
+                    <h3 className="text-base font-semibold tracking-[-0.03em] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.28)] sm:text-lg">
+                      {card.title}
+                    </h3>
+                  </div>
                 </div>
-              </div>
-            </article>
+              </article>
+            ))}
           </div>
         </section>
 
         <section className="py-12 lg:py-14">
-          <div className="grid gap-5 lg:grid-cols-[1.15fr_0.85fr]">
-            <div className="content-card rounded-[1.9rem] bg-[linear-gradient(145deg,rgba(249,251,250,0.96),rgba(232,238,234,0.94))] p-6 shadow-[0_18px_46px_rgba(34,42,37,0.06)] sm:p-7">
+          <div className="grid gap-5 lg:grid-cols-[0.7fr_0.3fr]">
+            <section className="content-card rounded-[1.9rem] bg-[linear-gradient(145deg,rgba(249,251,250,0.97),rgba(232,238,234,0.95))] p-6 shadow-[0_18px_46px_rgba(34,42,37,0.06)] sm:p-7">
               <p className="eyebrow text-xs font-semibold">Ekstra lag</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-[-0.05em] sm:text-4xl">
-                Kompetanse og erfaring utover det vanlige
+                Kompetanse, verktøy og praktisk erfaring
               </h2>
               <p className="mt-4 max-w-2xl text-base leading-7 text-[var(--muted)] sm:text-lg">
-                En blanding av markedsføring, drift, teknologi, kreative verktøy og praktisk gjennomføring.
+                En kort oversikt over verktøy, arbeidsområder og erfaring som utfyller CV-en.
               </p>
 
-              <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                {competencyGroups.map((group) => (
-                  <article
-                    key={group.title}
-                    className="rounded-[1.5rem] border border-white/70 bg-white/72 p-4 shadow-[0_14px_34px_rgba(34,42,37,0.04)]"
-                  >
-                    <h3 className="text-sm font-semibold tracking-[-0.02em] text-[var(--foreground)]">
-                      {group.title}
-                    </h3>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {group.items.map((item) => (
-                        <span
-                          key={item}
-                          className="rounded-full border border-[rgba(17,23,20,0.08)] bg-white/78 px-3 py-1 text-xs text-[var(--muted)]"
-                        >
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid gap-5">
-              <section className="content-card rounded-[1.9rem] bg-[linear-gradient(145deg,rgba(29,41,36,0.96),rgba(44,56,50,0.94))] p-6 text-white shadow-[0_20px_52px_rgba(18,24,21,0.18)] sm:p-7">
-                <h3 className="text-xl font-semibold tracking-[-0.03em]">
-                  Hvordan jeg bygger
-                </h3>
-                <div className="mt-4 grid gap-2.5">
-                  {buildPrinciples.map((principle) => (
-                    <div
-                      key={principle}
-                      className="rounded-[1rem] border border-white/10 bg-white/6 px-4 py-3 text-sm text-white/84"
-                    >
-                      {principle}
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              <section className="content-card rounded-[1.9rem] bg-[linear-gradient(145deg,rgba(252,252,251,0.96),rgba(240,238,232,0.94))] p-6 shadow-[0_18px_46px_rgba(34,42,37,0.06)] sm:p-7">
+              <div className="mt-7">
                 <h3 className="text-xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
-                  Frivillig arbeid og organisasjon
+                  Kompetanse og verktøy
                 </h3>
-                <div className="mt-4 grid gap-3">
-                  {volunteerItems.map((item) => (
+                <p className="mt-2 text-sm leading-6 text-[var(--muted)] sm:text-base">
+                  Områder, verktøy og arbeidsflyt jeg har jobbet med de siste årene.
+                </p>
+
+                <div className="mt-6 divide-y divide-[rgba(17,23,20,0.08)]">
+                  {competencyGroups.map((group, index) => (
                     <article
-                      key={item.role}
-                      className="rounded-[1.3rem] border border-[rgba(17,23,20,0.08)] bg-white/76 p-4"
+                      key={group.title}
+                      className={`py-5 ${index === 0 ? "pt-0" : ""}`}
                     >
-                      <p className="text-sm font-semibold text-[var(--foreground)]">{item.role}</p>
-                      <p className="mt-1 text-sm text-[var(--muted)]">{item.organization}</p>
+                      <h4 className="text-sm font-semibold tracking-[-0.02em] text-[var(--foreground)] sm:text-base">
+                        {group.title}
+                      </h4>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {group.items.map((item) => (
+                          <span
+                            key={item}
+                            className="rounded-full border border-[rgba(17,23,20,0.08)] bg-white/78 px-3 py-1.5 text-xs text-[var(--muted)]"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
                     </article>
                   ))}
                 </div>
-              </section>
+              </div>
+            </section>
 
-              <section className="content-card rounded-[1.9rem] bg-[linear-gradient(145deg,rgba(250,252,252,0.96),rgba(236,241,243,0.94))] p-6 shadow-[0_18px_46px_rgba(34,42,37,0.06)] sm:p-7">
-                <h3 className="text-xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
-                  Språk og arbeid på tvers av markeder
-                </h3>
-                <ul className="mt-4 space-y-3 text-sm leading-6 text-[var(--muted)]">
-                  {marketItems.map((item) => (
-                    <li key={item} className="flex gap-3">
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            </div>
+            <section className="content-card rounded-[1.9rem] bg-[linear-gradient(145deg,rgba(250,252,252,0.96),rgba(236,241,243,0.94))] p-6 shadow-[0_18px_46px_rgba(34,42,37,0.06)] sm:p-7">
+              <h3 className="text-xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
+                Praktisk
+              </h3>
+              <div className="mt-5 grid gap-3">
+                {practicalItems.map((item) => {
+                  const Icon = item.icon;
+
+                  return (
+                    <div key={item.label} className="flex items-center gap-3">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--accent-soft)] text-[var(--accent)]">
+                        <Icon className="h-4 w-4" strokeWidth={1.9} />
+                      </span>
+                      <span className="text-sm leading-6 text-[var(--muted)]">{item.label}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
           </div>
         </section>
 
@@ -749,13 +873,13 @@ export default function Home() {
           <div className="relative overflow-hidden rounded-[2.4rem] border border-white/10 p-8 text-white shadow-[0_36px_100px_rgba(8,16,14,0.22)] sm:p-10 lg:p-12">
             <Image
               src={contactBackgroundImage}
-              alt="Rolig fjellandskap i kaldt lys"
+              alt="Moderne arkitektur i et urbant forretningsmiljø"
               fill
               sizes="100vw"
               className="object-cover object-center"
             />
-            <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(8,14,13,0.88)_0%,rgba(8,14,13,0.72)_48%,rgba(8,14,13,0.84)_100%)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(61,125,97,0.28),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(210,184,134,0.12),transparent_20%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(8,14,13,0.9)_0%,rgba(8,14,13,0.76)_48%,rgba(8,14,13,0.86)_100%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(61,125,97,0.18),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(210,184,134,0.08),transparent_20%)]" />
             <div className="relative max-w-3xl">
               <p className="eyebrow text-xs font-semibold text-white/62">Kontakt</p>
               <h2 className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-balance sm:text-5xl lg:text-6xl">
