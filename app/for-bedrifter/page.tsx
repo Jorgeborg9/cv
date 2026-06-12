@@ -10,6 +10,7 @@ const heroBackgroundImage =
 const contactBackgroundImage =
   "https://images.unsplash.com/photo-1745323309688-fc2639112546?auto=format&fit=crop&w=1800&q=80";
 const heroPortraitImage = "/images/Portrett%20J%C3%B8rgen%202.png";
+const processPortraitImage = "/images/Portrett%20J%C3%B8rgen%201.png";
 
 type ServiceItem = {
   title: string;
@@ -191,54 +192,68 @@ function ProcessSection() {
     <section id="process" className="py-12 scroll-mt-24 lg:py-14">
       <div className="overflow-hidden rounded-[2.2rem] bg-[linear-gradient(145deg,#111714_0%,#1a2320_48%,#202d28_100%)] py-12 text-white shadow-[0_24px_66px_rgba(15,20,18,0.22)] lg:py-14">
         <div className="px-6 sm:px-8 lg:px-10">
-          <div className="grid gap-6 lg:grid-cols-[0.36fr_0.64fr] lg:items-end">
-            <div className="max-w-md">
-              <p className="eyebrow text-xs font-semibold text-white/52">Hvordan jeg jobber</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.05em] sm:text-4xl">
-                Hvordan jeg skaper resultater
-              </h2>
+          <div className="grid gap-8 lg:grid-cols-[0.38fr_0.62fr] lg:items-stretch lg:gap-10">
+            <div className="relative overflow-hidden rounded-[1.9rem] border border-white/10 bg-white/6 shadow-[0_18px_42px_rgba(0,0,0,0.16)] min-h-[21rem] sm:min-h-[26rem] lg:h-full lg:min-h-[34rem]">
+              <Image
+                src={processPortraitImage}
+                alt="Portrett av Jørgen Berg"
+                fill
+                sizes="(min-width: 1024px) 28rem, 100vw"
+                className="object-cover object-[62%_18%]"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,13,12,0.04)_0%,rgba(8,13,12,0.18)_52%,rgba(8,13,12,0.32)_100%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(61,125,97,0.12),transparent_24%)]" />
             </div>
-            <p className="max-w-2xl text-sm leading-6 text-white/64 sm:text-base">
-              De fleste bedrifter trenger ikke flere ideer. De trenger å finne hva som faktisk
-              holder dem tilbake, prioritere riktig og gjennomføre forbedringer som kan måles.
-            </p>
-          </div>
 
-          <div className="mt-8 grid gap-5 lg:grid-cols-3">
-            {[
-              {
-                icon: Search,
-                title: "Finn flaskehalsen",
-                body: "Jeg finner hvor kunder faller av og hva som hindrer vekst.",
-              },
-              {
-                icon: Megaphone,
-                title: "Prioriter riktig",
-                body: "Jeg fokuserer på tiltak som gir størst effekt først.",
-              },
-              {
-                icon: Bot,
-                title: "Test og optimaliser",
-                body: "Jeg bruker data til å forbedre resultater over tid.",
-              },
-            ].map((item) => {
-              const StepIcon = item.icon;
+            <div className="flex flex-col justify-center">
+              <div className="max-w-3xl">
+                <p className="eyebrow text-xs font-semibold text-white/52">Hvordan jeg jobber</p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.05em] sm:text-4xl">
+                  Hvordan jeg skaper resultater
+                </h2>
+                <p className="mt-4 text-sm leading-6 text-white/64 sm:text-base">
+                  De fleste bedrifter trenger ikke flere ideer. De trenger å finne hva som faktisk
+                  holder dem tilbake, prioritere riktig og gjennomføre forbedringer som kan måles.
+                </p>
+              </div>
 
-              return (
-                <article
-                  key={item.title}
-                  className="rounded-[1.8rem] border border-white/10 bg-white/8 p-6 shadow-[0_14px_34px_rgba(0,0,0,0.12)]"
-                >
-                  <span className="flex h-12 w-12 items-center justify-center rounded-[1.2rem] border border-white/10 bg-white/8 text-white/82">
-                    <StepIcon className="h-5 w-5" strokeWidth={1.9} />
-                  </span>
-                  <h3 className="mt-5 text-2xl font-semibold tracking-[-0.04em] text-white">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-6 text-white/64">{item.body}</p>
-                </article>
-              );
-            })}
+              <div className="mt-8 grid gap-5 xl:grid-cols-3">
+                {[
+                  {
+                    icon: Search,
+                    title: "Finn flaskehalsen",
+                    body: "Jeg finner hvor kunder faller av og hva som hindrer vekst.",
+                  },
+                  {
+                    icon: Megaphone,
+                    title: "Prioriter riktig",
+                    body: "Jeg fokuserer på tiltak som gir størst effekt først.",
+                  },
+                  {
+                    icon: Bot,
+                    title: "Test og optimaliser",
+                    body: "Jeg bruker data til å forbedre resultater over tid.",
+                  },
+                ].map((item) => {
+                  const StepIcon = item.icon;
+
+                  return (
+                    <article
+                      key={item.title}
+                      className="rounded-[1.8rem] border border-white/10 bg-white/8 p-6 shadow-[0_14px_34px_rgba(0,0,0,0.12)]"
+                    >
+                      <span className="flex h-12 w-12 items-center justify-center rounded-[1.2rem] border border-white/10 bg-white/8 text-white/82">
+                        <StepIcon className="h-5 w-5" strokeWidth={1.9} />
+                      </span>
+                      <h3 className="mt-5 text-2xl font-semibold tracking-[-0.04em] text-white">
+                        {item.title}
+                      </h3>
+                      <p className="mt-3 text-sm leading-6 text-white/64">{item.body}</p>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -287,11 +302,7 @@ export default function ForBedrifterPage() {
 
           <div className="relative z-10 grid flex-1 items-center gap-14 py-16 lg:grid-cols-[0.96fr_0.7fr] lg:gap-20 lg:py-20">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/14 bg-white/10 px-4 py-2 text-xs font-medium text-white/78 backdrop-blur">
-                <span className="h-2 w-2 rounded-full bg-[var(--accent)]" />
-                For bedrifter som vil få mer ut av trafikken de allerede har
-              </div>
-              <h1 className="mt-7 max-w-3xl text-4xl leading-[0.92] font-semibold tracking-[-0.07em] text-balance sm:text-5xl lg:text-[4.15rem]">
+              <h1 className="max-w-3xl text-4xl leading-[0.92] font-semibold tracking-[-0.07em] text-balance sm:text-5xl lg:text-[4.15rem]">
                 Mer synlighet. Flere henvendelser. Mindre gjetting.
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-7 text-white/76 sm:text-lg sm:leading-8">
@@ -332,16 +343,19 @@ export default function ForBedrifterPage() {
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,13,12,0.01)_0%,rgba(8,13,12,0.16)_46%,rgba(8,13,12,0.58)_100%)]" />
                   </div>
                   <div className="relative px-5 py-4">
-                    <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/42">
-                      Basert i Trondheim
-                    </p>
                     <p className="mt-2 text-lg font-semibold tracking-[-0.02em] text-white">
-                      Analyse, resultater og gjennomføring
+                      Jørgen Berg
                     </p>
+                    <p className="mt-1 text-sm text-white/82">Digital markedsfører</p>
                     <p className="mt-1.5 text-sm leading-6 text-white/56">
-                      Praktisk arbeid med nettsider, annonser, testing og forbedringer som faktisk
-                      blir gjort.
+                      Jobber med annonsering, nettsider, analyse og digitale prosjekter for små
+                      og mellomstore bedrifter.
                     </p>
+                    <div className="mt-3">
+                      <span className="rounded-full border border-white/18 bg-black/12 px-3 py-1 text-xs text-white/78">
+                        Trondheim
+                      </span>
+                    </div>
                   </div>
                 </div>
               </article>
@@ -352,14 +366,12 @@ export default function ForBedrifterPage() {
 
       <div className="mx-auto flex w-full max-w-7xl flex-col px-6 pb-20 pt-8 sm:px-8 lg:px-12 lg:pb-24 lg:pt-10">
         <section id="services" className="py-6 scroll-mt-24 lg:py-8">
-          <div className="grid gap-6 lg:grid-cols-[0.34fr_0.66fr] lg:items-end">
-            <div className="max-w-md">
-              <p className="eyebrow text-xs font-semibold">Hva jeg hjelper med</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.05em] sm:text-4xl">
-                Praktisk hjelp med det som faktisk påvirker resultatene
-              </h2>
-            </div>
-            <p className="max-w-2xl text-sm leading-6 text-[var(--muted)] sm:text-base">
+          <div className="max-w-3xl">
+            <p className="eyebrow text-xs font-semibold">Hva jeg hjelper med</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.05em] sm:text-4xl">
+              Praktisk hjelp med det som faktisk påvirker resultatene
+            </h2>
+            <p className="mt-4 text-sm leading-6 text-[var(--muted)] sm:text-base">
               Tydelige leveranser, roligere struktur og fokus på de områdene der bedrifter faktisk
               taper synlighet, henvendelser eller fremdrift.
             </p>
@@ -420,14 +432,12 @@ export default function ForBedrifterPage() {
         <section id="pricing" className="py-12 scroll-mt-24 lg:py-14">
           <div className="overflow-hidden rounded-[2.3rem] bg-[linear-gradient(145deg,rgba(250,252,249,0.96),rgba(235,241,236,0.94))] py-12 shadow-[0_22px_56px_rgba(34,42,37,0.07)] lg:py-14">
             <div className="px-6 sm:px-8 lg:px-10">
-              <div className="grid gap-6 lg:grid-cols-[0.34fr_0.66fr] lg:items-end">
-                <div className="max-w-md">
-                  <p className="eyebrow text-xs font-semibold">Tre måter å jobbe sammen</p>
-                  <h2 className="mt-3 text-3xl font-semibold tracking-[-0.05em] sm:text-4xl">
-                    Velg en enkel start som passer behovet deres
-                  </h2>
-                </div>
-                <p className="max-w-2xl text-sm leading-6 text-[var(--muted)] sm:text-base">
+              <div className="max-w-3xl">
+                <p className="eyebrow text-xs font-semibold">Tre måter å jobbe sammen</p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.05em] sm:text-4xl">
+                  Velg en enkel start som passer behovet deres
+                </h2>
+                <p className="mt-4 text-sm leading-6 text-[var(--muted)] sm:text-base">
                   Tydelige pakker for bedrifter som vil starte med analyse, forbedring eller løpende
                   samarbeid. Den siste er for dere som bare vil finne riktig vei først.
                 </p>

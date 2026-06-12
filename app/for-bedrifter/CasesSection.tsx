@@ -168,14 +168,12 @@ export default function CasesSection() {
 
   return (
     <section id="cases" className="py-12 scroll-mt-24 lg:py-14">
-      <div className="grid gap-6 lg:grid-cols-[0.42fr_0.58fr] lg:items-start">
-        <div className="max-w-lg">
-          <p className="eyebrow text-xs font-semibold">UTVALGTE PROSJEKTER</p>
-          <h2 className="mt-3 text-4xl font-semibold tracking-[-0.06em] sm:text-5xl">
-            Eksempler på arbeid som har skapt resultater.
-          </h2>
-        </div>
-        <p className="max-w-2xl pt-1 text-sm leading-6 text-[var(--muted)] sm:text-base lg:text-right">
+      <div className="max-w-3xl">
+        <p className="eyebrow text-xs font-semibold">UTVALGTE PROSJEKTER</p>
+        <h2 className="mt-3 text-4xl font-semibold tracking-[-0.06em] sm:text-5xl">
+          Eksempler på arbeid som har skapt resultater.
+        </h2>
+        <p className="mt-4 text-sm leading-6 text-[var(--muted)] sm:text-base">
           Et lite utvalg prosjekter som viser hvordan jeg jobber med synlighet, nettsider,
           analyse og forbedringer i praksis.
         </p>
