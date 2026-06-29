@@ -29,8 +29,7 @@ export default function RootLayout({
       lang="no"
       className={`${instrumentSans.variable} ${jetbrainsMono.variable} h-full scroll-smooth antialiased`}
     >
-      <GoogleTagManager gtmId="GTM-KL8SB43V
-" />
+      <GoogleTagManager gtmId="GTM-KL8SB43V"/>
 
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
