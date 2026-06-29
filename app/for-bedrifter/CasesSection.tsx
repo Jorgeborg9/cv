@@ -200,6 +200,7 @@ export default function CasesSection() {
                   <button
                     type="button"
                     onClick={() => setOpenCase(isActive ? null : item.slug)}
+                    data-track="case-click"
                     className="text-sm font-medium text-[var(--foreground)]"
                   >
                     Les mer
@@ -207,6 +208,7 @@ export default function CasesSection() {
                   <button
                     type="button"
                     onClick={() => setOpenCase(isActive ? null : item.slug)}
+                    data-track="case-click"
                     aria-label={isActive ? `Lukk ${item.title}` : `Åpne ${item.title}`}
                     className="text-lg text-[var(--muted)] transition-transform duration-300"
                   >

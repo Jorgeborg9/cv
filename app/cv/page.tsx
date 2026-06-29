@@ -543,6 +543,7 @@ export default function Home() {
                 </a>
                 <a
                   href="#contact"
+                  data-track="contact-cta"
                   className="inline-flex h-12 items-center justify-center rounded-full border border-white/18 bg-white/10 px-6 text-sm font-medium text-white backdrop-blur hover:-translate-y-0.5 hover:border-white/32"
                 >
                   Ta kontakt
@@ -891,12 +892,14 @@ export default function Home() {
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <a
                   href="mailto:j_berg123@hotmail.com"
+                  data-track="contact-email"
                   className="inline-flex h-12 items-center justify-center rounded-full bg-white px-6 text-sm font-medium text-[var(--foreground)] shadow-[0_16px_40px_rgba(0,0,0,0.22)] hover:-translate-y-0.5"
                 >
                   j_berg123@hotmail.com
                 </a>
                 <a
                   href="https://www.linkedin.com/in/j%C3%B8rgen-berg-61b6a3b7/"
+                  data-track="linkedin-click"
                   className="inline-flex h-12 items-center justify-center rounded-full border border-white/16 bg-white/10 px-6 text-sm font-medium text-white backdrop-blur hover:-translate-y-0.5"
                 >
                   LinkedIn

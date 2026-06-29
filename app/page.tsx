@@ -40,6 +40,30 @@ type FooterLinkGroup = {
   links: { label: string; href: string }[];
 };
 
+function getDataTrackForHref(href: string) {
+  if (href.startsWith("mailto:")) {
+    return "contact-email";
+  }
+
+  if (href.startsWith("tel:")) {
+    return "contact-phone";
+  }
+
+  if (href.includes("linkedin.com")) {
+    return "linkedin-click";
+  }
+
+  if (href.includes("github.com")) {
+    return "github-click";
+  }
+
+  if (href === "/cv") {
+    return "cv-click";
+  }
+
+  return undefined;
+}
+
 const serviceItems: ServiceItem[] = [
   {
     title: "Synlighet",
@@ -361,6 +385,7 @@ export default function ForBedrifterPage() {
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <a
                   href="#pricing"
+                  data-track="contact-cta"
                   className="inline-flex h-12 items-center justify-center rounded-full bg-white px-6 text-sm font-medium text-[var(--foreground)] shadow-[0_18px_44px_rgba(0,0,0,0.2)] hover:-translate-y-0.5"
                 >
                   Book en kort prat
@@ -558,6 +583,7 @@ export default function ForBedrifterPage() {
                     </div>
                     <a
                       href="#contact"
+                      data-track="contact-cta"
                       className={`mt-6 inline-flex h-12 w-full items-center justify-center rounded-full px-6 text-sm font-medium transition-transform hover:-translate-y-0.5 ${
                         item.emphasis === "dark"
                           ? "bg-white text-[var(--foreground)] shadow-[0_16px_36px_rgba(0,0,0,0.18)]"
@@ -689,18 +715,21 @@ export default function ForBedrifterPage() {
                 <div className="mt-4 flex flex-col gap-3">
                   <a
                     href="mailto:bergjorgen9@gmail.com"
+                    data-track="contact-email"
                     className="inline-flex h-12 items-center justify-center rounded-full bg-white px-6 text-sm font-medium text-[var(--foreground)] shadow-[0_16px_40px_rgba(0,0,0,0.22)] hover:-translate-y-0.5"
                   >
                     Book en prat
                   </a>
                   <a
                     href="https://www.linkedin.com/in/j%C3%B8rgen-berg-61b6a3b7/"
+                    data-track="linkedin-click"
                     className="inline-flex h-12 items-center justify-center rounded-full border border-white/16 bg-white/10 px-6 text-sm font-medium text-white backdrop-blur hover:-translate-y-0.5"
                   >
                     LinkedIn
                   </a>
                   <Link
                     href="/cv"
+                    data-track="cv-click"
                     className="inline-flex h-12 items-center justify-center rounded-full border border-white/16 bg-transparent px-6 text-sm font-medium text-white/82 hover:-translate-y-0.5 hover:text-white"
                   >
                     Se CV og portefølje
@@ -741,6 +770,7 @@ export default function ForBedrifterPage() {
                         <Link
                           key={link.label}
                           href={link.href}
+                          data-track={getDataTrackForHref(link.href)}
                           className="text-sm text-[var(--muted)] hover:text-[var(--foreground)]"
                         >
                           {link.label}
@@ -749,6 +779,7 @@ export default function ForBedrifterPage() {
                         <a
                           key={link.label}
                           href={link.href}
+                          data-track={getDataTrackForHref(link.href)}
                           className="text-sm text-[var(--muted)] hover:text-[var(--foreground)]"
                         >
                           {link.label}
