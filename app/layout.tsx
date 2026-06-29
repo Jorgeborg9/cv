@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Instrument_Sans, JetBrains_Mono } from "next/font/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import "./globals.css";
 
 const instrumentSans = Instrument_Sans({
@@ -28,6 +29,9 @@ export default function RootLayout({
       lang="no"
       className={`${instrumentSans.variable} ${jetbrainsMono.variable} h-full scroll-smooth antialiased`}
     >
+      <GoogleTagManager gtmId="GTM-KL8SB43V
+" />
+
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
